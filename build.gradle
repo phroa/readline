@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            name = "forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.liteloader'
+apply plugin: 'org.spongepowered.mixin'
+
+version = modVersion
+group = modGroup
+archivesBaseName = modBaseName
+
+minecraft {
+    version = project.mcVersion
+    mappings = project.mcpMappings
+    runDir = "run"
+    replaceIn 'src/main/java/net/phroa/readline/LiteModReadline.java'
+    replace '@NAME@', project.modBaseName
+    replace '@VERSION@', project.version
+}
+
+sourceSets.main {
+    refMap = 'mixin.readline.refmap.json'
+}
+
+mixin {
+    defaultObfuscationEnv notch
+}
+
+litemod {
+    json {
+        author = 'phroa'
+        mcversion = project.mcVersion
+        description = 'Readline keybindings'
+        mixinConfigs = ['mixin.readline.json']
+    }
+}
+
+jar {
+    from litemod.outputs
+}

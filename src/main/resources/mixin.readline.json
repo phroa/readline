@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "minVersion": "0.6.10",
+  "package": "net.phroa.readline.mixin",
+  "refmap": "mixin.readline.refmap.json",
+  "mixins": [
+    "MixinGuiTextField"
+  ]
+}
