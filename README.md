@@ -20,7 +20,7 @@ C-u = backward-delete-line
 C-k = forward-delete-line
 
 C-t = transpose-chars
-M-t = transpose-chars
+M-t = transpose-words
 
 M-c = capitalize-word
 M-u = upcase-word
